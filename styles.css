@@ -1,0 +1,17 @@
+.container {
+display: flex;
+flex-direction: column;  
+align-items: center; 
+}
+
+.result {
+    border: 1px solid red;
+   margin: 10px 0;
+   text-align: right
+}
+
+button {
+    margin: 2px;
+    width: 32px;
+    aspect-ratio: 1 / 1;
+}

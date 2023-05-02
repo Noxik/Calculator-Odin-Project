@@ -13,7 +13,7 @@ let digit /* 0-9 calc */
 let result = document.querySelector(".result")
 
 /* button click to result div */
-const btn = document.querySelectorAll("button");
+const btn = document.querySelectorAll(".digit");
 btn.forEach( function(e) {
     e.addEventListener("click", () => {
         digit = e.textContent;

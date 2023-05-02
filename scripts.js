@@ -2,10 +2,11 @@ const add = (a,b) => a + b;
 const subtract = (a,b) => a - b;
 const multiply = (a,b) => a * b;
 const divide = (a,b) => a/b;
+const exponentiation = (a,b) => Math.pow(a, b);
 
 let math
-let a;
-let b;
+let a = 2;
+let b = 4;
 
 const operate = (a, b, math) => math(a,b);
 
@@ -38,8 +39,11 @@ operatorBtn.forEach( function(e) {
                 case ("-"):
                     math = subtract;
                     break; 
-                case ("/"):
+                case ("\u00F7"): /* IMPORTANT: this is division symbol for JS code! */
                     math = divide;
+                    break; 
+                case ("xy"):
+                    math = exponentiation;
                     break; 
                 }
             console.log(e.textContent);
@@ -47,8 +51,15 @@ operatorBtn.forEach( function(e) {
          })})
    
 
-let cleanC = document.querySelector(".clean")
-cleanC.addEventListener("click", () => {
+let cleanBtn = document.querySelector(".clean")
+cleanBtn.addEventListener("click", () => {
     result.innerText = "0";
+    show = ""
+})
+
+let countBtn = document.querySelector(".count")
+countBtn.addEventListener("click", () => {
+    let test = operate(a,b, math)
+    result.innerText = test
     show = ""
 })

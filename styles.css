@@ -4,16 +4,22 @@ flex-direction: column;
 align-items: center; 
 }
 
+.calc {
+    width: 220px
+}
+
 .result {
     border: 1px solid red;
    margin-bottom: 10px;
-   text-align: right
+   text-align: right;
+   font-size: 4vh
 }
 
 button {
     margin: 2px;
-    width: 32px;
+    width: 48px;
     aspect-ratio: 1 / 1;
+    font-size: 3vh
 }
 
 .calcInline {
@@ -24,4 +30,8 @@ button {
 
 .operation {
     display: flex
+}
+
+#x {
+    margin: 0 3px;
 }

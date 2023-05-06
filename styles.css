@@ -12,14 +12,14 @@ align-items: center;
     border: 1px solid red;
    margin-bottom: 10px;
    text-align: right;
-   font-size: 4vh
+   font-size: 1rem
 }
 
 button {
     margin: 2px;
     width: 48px;
     aspect-ratio: 1 / 1;
-    font-size: 3vh
+    font-size: 1rem
 }
 
 .calcInline {
@@ -29,9 +29,22 @@ button {
 }
 
 .operation {
-    display: flex
+    display: flex;
+   
 }
 
 #x {
     margin: 0 3px;
+}
+
+.digit {
+
+}
+
+.operator, .count, .plusminus, .clean, .del {
+    background-color: #ffa500
+}
+
+.operator:hover, .count:hover, .plusminus:hover, .clean:hover, .del:hover{
+    background-color: #eb9901
 }

@@ -10,7 +10,7 @@ const divide = function (a,b) {
         b = ""
     } else {
         return a/b;
-    }
+             }
     } 
 
 const operate = (a, b, math) => math(a,b);
@@ -43,16 +43,14 @@ digitBtn.forEach( function(e) {
             dotBtn.disabled = true
             
         } else {
-        console.log(digits)
+        
         if (digits.length === 0) {
             digits.push("0.")
-            console.log(digits)
             display = "0."
             result.textContent = display;
             
         } else {
             digits.push(".")
-            console.log(digits)
             display += "."
             result.textContent = display
                 }
@@ -77,8 +75,7 @@ digitBtn.forEach( function(e) {
         divB.textContent = b
     }
    
-    console.log("a:", a, "b:", b)
-    console.log(test)
+//    console.log("a:", a, "b:", b, "test", test)
 }
 })
    })
@@ -140,18 +137,7 @@ let test
 
 let cleanBtn = document.querySelector(".clean")
 cleanBtn.addEventListener("click", () => {
-    a = "";
-    b = "";
-    math = undefined;
-    digits = [];
-    display = ""
-    test = undefined;
-    result.textContent = 0;
-    countA = "";
-    divA.textContent = ""
-    divB.textContent = ""
-    divX.textContent = ""
-    dotBtn.disabled = false
+    clean()
 })
 
 let plusMinusBtn = document.querySelector(".plusminus")
@@ -164,67 +150,28 @@ plusMinusBtn.addEventListener("click", () => {
     b *= -1
    divB.textContent = b
    }
-    console.log("a:", a, "b:", b, "test:", test, "display:", display)
+//    console.log("a:", a, "b:", b, "test:", test, "display:", display)
    
     result.textContent = a
     test = operate(a,b, math)
 })
 
-//do poprawy bo nie dziaa po klikniecu math button, nie mozna cofac w var b
+
 let deleteBtn= document.querySelector(".del")
 deleteBtn.addEventListener("click", () => { 
-  if (a !== undefined && math !== undefined && b === 0) {
-math = undefined;
-divX.textContent = " ";
-result.textContent =  a;
-// console.log("aaa po math")
-  } 
- 
-  else if (a !== undefined && math !== undefined && b !== undefined) {
-    digits.pop();
-    display = digits.join("");
-//   console.log("display", display)
-    b = Number(digits.join(""))
-    divB.textContent = b
-
-    result.textContent = digits.join("") 
-    test = operate(a,b, math)
-    if ((digits.join("")).length === 0) {
-        b = 0;
-        result.textContent = "0";
-        divB.textContent = " "
-    }
-}
-  
-  else {
-//   console.log("wchodzi ostatni")
-    digits = Array.from(String(a), String); //if there is array.from(String(a), String) then when you have "." in your a number it cause error NaN
-    digits.pop();
-    a = Number(digits.join(""))
-    divA.textContent = a
-    result.textContent = a
-    test = undefined
-  }
+ del()
 })
 
 let countA
 let countBtn = document.querySelector(".count")
 countBtn.addEventListener("click", () => {
-    countA = Number(operate(a,b, math)) 
-    a = countA
-    test = a
-    result.textContent = countA
-    divB.textContent = b + " ="
-    divA.textContent = countA
-digits = []
-display = ""
-    console.log(a, test, b)
+count()
 })
 
 
 // BETA KEYDOWN 
 window.addEventListener("keydown", event => {   
-     console.log(event.key)
+//     console.log(event.key)
      let liczby = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "."]
    
     if (liczby.some((x) => x == event.key)) {
@@ -235,7 +182,7 @@ window.addEventListener("keydown", event => {
             
     if (math === undefined) {
         a = display;
-        console.log("a", a, "b", b)
+    //    console.log("a", a, "b", b)
         } else {
             b = display;
             divB.textContent = b
@@ -278,7 +225,7 @@ window.addEventListener("keydown", event => {
          }      
          
         if (a !== undefined && math !== undefined) {            
-             console.log("aaa", a, "bbb", b);
+        //     console.log("aaa", a, "bbb", b);
              result.textContent = display;
              divA.textContent = a;
              divX.textContent = c;
@@ -294,50 +241,19 @@ window.addEventListener("keydown", event => {
         }          
  
         if (event.key === "Enter" || event.key === "=") {
-            countA = Number(operate(a,b, math)) 
-            a = countA
-            test = a
-            result.textContent = countA
-            divB.textContent = b + " ="
-            divA.textContent = countA
-            digits = []
-            display = ""
-            console.log(a, test, b)
+            count()
+           
         }
 
         if (event.key === "Backspace") {
-            if (a !== undefined && math !== undefined && b === 0) {
+            del();
+        //    console.log("a", a, "b", b, "math", math, "test", test)
+        
+        // additional because something dont work with Backspace keydown. without it after delete var b something is blocked on var math and cant go to the next variable (a)
+            if (a !== undefined && b === 0 && math !== undefined) {
                 math = undefined;
-                divX.textContent = " ";
-                result.textContent =  a;
-                // console.log("aaa po math")
-                  } 
-                 
-                  else if (a !== undefined && math !== undefined && b !== undefined) {
-                    digits.pop();
-                    display = digits.join("");
-                //   console.log("display", display)
-                    b = Number(digits.join(""))
-                    divB.textContent = b
-                
-                    result.textContent = digits.join("") 
-                    test = operate(a,b, math)
-                    if ((digits.join("")).length === 0) {
-                        b = 0;
-                        result.textContent = "0";
-                        divB.textContent = " "
-                    }
-                }
-                  
-                  else {
-                //   console.log("wchodzi ostatni")
-                    digits = Array.from(String(a), String); //if there is array.from(String(a), String) then when you have "." in your a number it cause error NaN
-                    digits.pop();
-                    a = Number(digits.join(""))
-                    divA.textContent = a
-                    result.textContent = a
-                    test = undefined
-                  }
+                divX.textContent = " "
+            }
         }
         
         if (event.key === "Escape" || event.key === "c") {
@@ -359,4 +275,51 @@ window.addEventListener("keydown", event => {
         divB.textContent = ""
         divX.textContent = ""
         dotBtn.disabled = false 
+    }
+
+    function del() {
+        if (a !== undefined && math !== undefined && b === 0) {
+            math = undefined;
+            divX.textContent = " ";
+            result.textContent =  a;
+            // console.log("aaa po math")
+              } 
+             
+              else if (a !== undefined && math !== undefined && b !== undefined) {
+                digits.pop();
+                display = digits.join("");
+            //   console.log("display", display)
+                b = Number(digits.join(""))
+                divB.textContent = b
+            
+                result.textContent = digits.join("") 
+                test = operate(a,b, math)
+                if ((digits.join("")).length === 0) {
+                    b = 0;
+                    result.textContent = "0";
+                    divB.textContent = " "
+                }
+            }
+              
+              else {
+            //   console.log("wchodzi ostatni")
+                digits = Array.from(String(a), String); //if there is array.from(String(a), String) then when you have "." in your a number it cause error NaN
+                digits.pop();
+                a = Number(digits.join(""))
+                divA.textContent = a
+                result.textContent = a
+                test = undefined
+              }
+    }
+
+    function count() {
+        countA = Number(operate(a,b, math)) 
+        a = countA
+        test = a
+        result.textContent = countA
+        divB.textContent = b + " ="
+        divA.textContent = countA
+    digits = []
+    display = ""
+    //    console.log(a, test, b)
     }

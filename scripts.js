@@ -29,6 +29,9 @@ let divX = document.getElementById("x")
 let result = document.querySelector(".result")
 let dotBtn = document.getElementById("dot")
 
+
+
+   
 /* button click to result div */
 const digitBtn = document.querySelectorAll(".digit");
 digitBtn.forEach( function(e) {
@@ -180,7 +183,7 @@ result.textContent =  a;
   else if (a !== undefined && math !== undefined && b !== undefined) {
     digits.pop();
     display = digits.join("");
- //   console.log("display", display)
+//   console.log("display", display)
     b = Number(digits.join(""))
     divB.textContent = b
 
@@ -194,7 +197,7 @@ result.textContent =  a;
 }
   
   else {
-    console.log("wchodzi ostatni")
+//   console.log("wchodzi ostatni")
     digits = Array.from(String(a), String); //if there is array.from(String(a), String) then when you have "." in your a number it cause error NaN
     digits.pop();
     a = Number(digits.join(""))
@@ -202,9 +205,6 @@ result.textContent =  a;
     result.textContent = a
     test = undefined
   }
-
-
-
 })
 
 let countA
@@ -220,3 +220,143 @@ digits = []
 display = ""
     console.log(a, test, b)
 })
+
+
+// BETA KEYDOWN 
+window.addEventListener("keydown", event => {   
+     console.log(event.key)
+     let liczby = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "."]
+   
+    if (liczby.some((x) => x == event.key)) {
+         (digits.join()).split(",")
+         digits.push(event.key)  
+         display = Number(digits.join(""))
+         result.textContent = display
+            
+    if (math === undefined) {
+        a = display;
+        console.log("a", a, "b", b)
+        } else {
+            b = display;
+            divB.textContent = b
+        //    console.log("aa", a, "bb", b);
+            test = Number(operate(a,b, math))
+                 }
+    } 
+ 
+    switch(event.key) {
+         case ("*"):
+             math = multiply;
+             c = "x";
+             digits = []
+             break;
+         case ("+"):
+             math = add;
+             c = "+";
+             digits = []
+             break; 
+         case ("-"):
+             math = subtract;
+             c = "-";
+             digits = []
+             break; 
+         case ("/"): // IMPORTANT: this is division symbol for JS code! 
+             math = divide;
+             c = "\u00F7";
+             digits = []
+             break; 
+         case ("^"):
+             math = exponentiation;
+             c = "^";
+             digits = []
+             break; 
+         case ("%"):
+             math = percent;
+             c = "%";
+             digits = []
+             break;               
+         }      
+         
+        if (a !== undefined && math !== undefined) {            
+             console.log("aaa", a, "bbb", b);
+             result.textContent = display;
+             divA.textContent = a;
+             divX.textContent = c;
+             divB.textContent = b             
+         }
+             
+        if (test !== undefined && digits.length === 0) {    
+            a = test;
+            divA.textContent = a
+            b = ""
+            divB.textContent = ""
+            result.textContent = a
+        }          
+ 
+        if (event.key === "Enter" || event.key === "=") {
+            countA = Number(operate(a,b, math)) 
+            a = countA
+            test = a
+            result.textContent = countA
+            divB.textContent = b + " ="
+            divA.textContent = countA
+            digits = []
+            display = ""
+            console.log(a, test, b)
+        }
+
+        if (event.key === "Backspace") {
+            if (a !== undefined && math !== undefined && b === 0) {
+                math = undefined;
+                divX.textContent = " ";
+                result.textContent =  a;
+                // console.log("aaa po math")
+                  } 
+                 
+                  else if (a !== undefined && math !== undefined && b !== undefined) {
+                    digits.pop();
+                    display = digits.join("");
+                //   console.log("display", display)
+                    b = Number(digits.join(""))
+                    divB.textContent = b
+                
+                    result.textContent = digits.join("") 
+                    test = operate(a,b, math)
+                    if ((digits.join("")).length === 0) {
+                        b = 0;
+                        result.textContent = "0";
+                        divB.textContent = " "
+                    }
+                }
+                  
+                  else {
+                //   console.log("wchodzi ostatni")
+                    digits = Array.from(String(a), String); //if there is array.from(String(a), String) then when you have "." in your a number it cause error NaN
+                    digits.pop();
+                    a = Number(digits.join(""))
+                    divA.textContent = a
+                    result.textContent = a
+                    test = undefined
+                  }
+        }
+        
+        if (event.key === "Escape" || event.key === "c") {
+           clean()
+        }
+    
+    })
+
+    function clean() {
+        a = "";
+        b = "";
+        math = undefined;
+        digits = [];
+        display = ""
+        test = undefined;
+        result.textContent = 0;
+        countA = "";
+        divA.textContent = ""
+        divB.textContent = ""
+        divX.textContent = ""
+        dotBtn.disabled = false 
+    }
